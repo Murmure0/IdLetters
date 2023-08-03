@@ -8,6 +8,9 @@ Une traduction écrite & orale dans la langue choisie : entièreté ou résumé 
 
 Extraction : TesseractORC; 
 Reconnaissance : OpenCV, Pytesseract;
+OU
+Extraction & reconnaissance : OpenVino // PaddleOCR
+
 Traduction : T5-small entrainé sur Opus_book (fr-pl/fr-it/fr-ru/fr-nl/fr-pt/fr-en)();
 Résumé du texte : langChain;
 Lecture : pyttsx3, additionnal language : eSpeak,RHVoice;
@@ -24,6 +27,9 @@ Sources :
 How to OCR with Tesseract, OpenCV and Python : https://nanonets.com/blog/ocr-with-tesseract/
 Installation : https://codetoprosper.com/extract-text-python-opencv-tesseract-ocr/
 
+OpenVino : 
+    https://github.com/openvinotoolkit/openvino_notebooks/blob/9cd22e1bfa951f98c72c0118e2ccf823024ca399/notebooks/405-paddle-ocr-webcam/405-paddle-ocr-webcam.ipynb
+
 Traduction :
     https://huggingface.co/docs/transformers/tasks/translation
 
@@ -34,3 +40,9 @@ pyttsx3, additionnal language:
 
 langChain : 
     https://python.langchain.com/docs/use_cases/summarization
+
+
+Pourquoi utiliser des modèles pr-xistents :
+    - Peu de temps
+    - Ce sera la pratique demandée en entreprise
+    - les modèles pré-existants et pé-entrainer polluent moins 
