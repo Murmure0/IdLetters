@@ -2,7 +2,9 @@
 
 - BUT : 
 Réalisation d'une application utilisant l'IA pour la traduction de papiers administratifs pour facilité l'intégration de personnes en difficulté.
+
 Extraction, reconnaissance et traduction de texte.
+
 Resultat : 
 Une traduction écrite & orale dans la langue choisie : entièreté ou résumé du contenu
 
@@ -16,15 +18,23 @@ Résumé du texte : langChain;
 Lecture : pyttsx3, additionnal language : eSpeak,RHVoice;
 
 - Réflexions en cours:
+- 
 Selection & installation de la langue dans laquelle interagir
+
 Prise de photo/scan du doc : check si l'image est au bon format (jpg/jpeg) & exploitable => voir resolution & qualitée du document, test d'identification
+
 Ne pas stocker les données personnelles : adresses, nom, tel ... => detecter pour flouter / ne pas enregistrer
+
 Viser l'objet, le contenu & l'organisme de contact
+
 Proposition de conserver en local la version traduite
 
 
 Sources :
+
+
 How to OCR with Tesseract, OpenCV and Python : https://nanonets.com/blog/ocr-with-tesseract/
+
 Installation : https://codetoprosper.com/extract-text-python-opencv-tesseract-ocr/
 
 OpenVino : 
