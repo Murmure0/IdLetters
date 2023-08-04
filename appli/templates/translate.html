@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Translator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="jumbotron text-white text-center">
+            <h1>Welcome to the Translator</h1>
+            <form method="POST">
+                <label for="input_text">Enter Text:</label>
+                <input type="text" id="input_text" name="input_text" required>
+                <button type="submit">Translate</button>
+            </form>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2>Translated Text:</h2>
+                <p>
+                    {% if translation_result %}
+                    <div class="translation-result">
+                        <p>{{ translation_result }}</p>
+                    </div>
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Download</h2>
+                <p> {% if translation_result %}
+                    <div class="translation-result">
+                        <div class="download-buttons">
+                            <a href="{{ url_for('download_pdf') }}" class="btn btn-primary" download="translated_text.pdf">Download as PDF</a>
+                        </div>
+                    </div>
+                    {% endif %}</p>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+body {
+    background-color: #f0f0f0;
+    color: #333333;
+}
+
+.jumbotron {
+    background-color: #b3a9fe;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+.col-md-6 {
+    border: 1px solid #ccc;
+    background-color: #e7e4fe;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    color: #fff6eb;
+}
