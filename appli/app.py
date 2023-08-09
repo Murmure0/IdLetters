@@ -1,19 +1,22 @@
 # App
 from flask import Flask, render_template, request, Response,session
 
-#Creating PDF
+# Creating PDF
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
 from translator import myUpperCase
+
+
 # ------------------------------------------------------------------------- #
 
 app = Flask(__name__)
 
 # Session
-app.secret_key = '123'
+app.secret_key = '123' # you should not see that, shoo
 
 # ------------------------------------------------------------------------- #
+# Paths
 
 @app.route('/', methods=['GET', 'POST'])
 def translate_text():
@@ -39,6 +42,8 @@ def download_pdf():
         'Content-Type': 'application/pdf'
     })
 
+# ------------------------------------------------------------------------- #
+# ToolBox
 
 def generate_pdf_content(text):
     buffer = BytesIO()
@@ -48,6 +53,10 @@ def generate_pdf_content(text):
     c.save()
     buffer.seek(0)
     return buffer.getvalue()
+
+
+# ------------------------------------------------------------------------- #
+# Running app
 
 if __name__ == '__main__':
     app.run()

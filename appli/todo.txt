@@ -1,0 +1,11 @@
+Config :
+
+- installer les dependances de BxlFormation ala maison
+- installer tensorflow à la maison : enable longPath
+- permettre de mieux bosser avec hugingface en mettant l'ordi en mode dev : https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+
+
+Dev : 
+
+- Utiliser un modele de translation : https://huggingface.co/docs/transformers/training#train-a-tensorflow-model-with-keras
+- Finetuner : https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/translation-tf.ipynb

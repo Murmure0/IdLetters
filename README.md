@@ -46,3 +46,4 @@ Pourquoi utiliser des modèles pr-xistents :
     - Peu de temps
     - Ce sera la pratique demandée en entreprise
     - les modèles pré-existants et pé-entrainer polluent moins 
+
