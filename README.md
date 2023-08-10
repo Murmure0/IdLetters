@@ -41,7 +41,9 @@ pyttsx3, additionnal language:
 langChain : 
     https://python.langchain.com/docs/use_cases/summarization
 
-
+Extraire le txt d'un pdf : 
+    https://pypdf2.readthedocs.io/en/3.0.0/user/extract-text.html
+    
 Pourquoi utiliser des modèles pr-xistents :
     - Peu de temps
     - Ce sera la pratique demandée en entreprise
