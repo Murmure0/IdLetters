@@ -5,7 +5,10 @@ from flask import Flask, render_template, request, Response,session
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from translator import myUpperCase
+import sys
+sys.path.insert(0, 'C:/Users/admindc/Desktop/finalProject/appli/toolBox/')
+from toolBox import translateText
+
 
 
 # ------------------------------------------------------------------------- #
@@ -21,15 +24,24 @@ app.secret_key = '123' # you should not see that, shoo
 @app.route('/', methods=['GET', 'POST'])
 def translate_text():
 
-    if request.method == 'POST':
-        input_text = request.form['input_text']
+    if request.method != 'POST':
+        return render_template('translate.html', translation_result=None)
+    input_text = request.form.get('input_text')
+    task = request.form.get('task')
+    transl_to = request.form.get('language_to')
 
-        translation_result = myUpperCase(input_text)  # TRANSLATE FUNCTION
+    if task == 'translate':
+        transl_from = request.form.get('language_from')                
+    elif task == 'detect':
+        transl_from = translateText.detec_lang(input_text)
 
-        session['translation_result'] = translation_result
-        return render_template('translate.html', translation_result=session.get('translation_result'))
-    
-    return render_template('translate.html', translation_result=None)
+    if transl_from == transl_to:
+        error_message = "Please select different languages for the translation."
+        return render_template('translate.html', error_message=error_message)
+
+    translation_result = translateText.make_trad(input_text, transl_from, transl_to)
+    session['translation_result'] = translation_result
+    return render_template('translate.html', translation_result=session.get('translation_result'))
 
 @app.route('/download_pdf')
 def download_pdf():

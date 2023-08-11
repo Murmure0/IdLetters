@@ -21,3 +21,17 @@ body {
 h1, h2 {
     color: #fff6eb;
 }
+
+textarea {
+    width: 100%;
+    resize: vertical;
+}
+
+
+.btn-group label {
+    margin-right: 10px; /* Ajustez la valeur de la marge selon vos besoins */
+}
+
+.btn-check{
+    margin-right: 5px;
+}

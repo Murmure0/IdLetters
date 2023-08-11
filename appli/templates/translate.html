@@ -16,9 +16,42 @@
         <div class="jumbotron text-white text-center">
             <h1>Welcome to the Translator</h1>
             <form method="POST">
+                <label for="language_from">From:</label>
+                <div class="btn-group" role="group" aria-label="Language From">
+                    <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
+                    <label class="btn btn-outline-primary" for="fr"> French </label>
+
+                    <input type="radio" id="en" name="language_from" value="en" class="btn-check">
+                    <label class="btn btn-outline-primary" for="en"> English </label>
+                </div>
+                <br>
+                
+                <label for="language_to">To:</label>
+                <div class="btn-group" role="group" aria-label="Language To">
+                    <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
+                    <label class="btn btn-outline-primary" for="fr_to"> French </label>
+                    
+                    <input type="radio" id="en_to" name="language_to" value="en" class="btn-check">
+                    <label class="btn btn-outline-primary" for="en_to"> English </label>
+                </div>
+                <br>
+
+
                 <label for="input_text">Enter Text:</label>
-                <input type="text" id="input_text" name="input_text" required>
-                <button type="submit">Translate</button>
+                <textarea type="text" id="input_text" name="input_text" rows="4"required></textarea>
+                <button type="submit">Translate / Detect Language</button>
+                <br>
+
+                <label for="task">Select Task:</label>
+                <input type="radio" id="translate" name="task" value="translate">
+                <label for="translate">Translate</label>
+                <input type="radio" id="detect" name="task" value="detect">
+                <label for="detect">Detect Language</label>
+                <br>
+                <!-- <button type="submit">Translate</button> -->
+                {% if error_message %}
+                <p class="error">{{ error_message }}</p>
+                {% endif %}
             </form>
         </div>
         <div class="row">
