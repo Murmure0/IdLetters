@@ -4,6 +4,8 @@ Config :
 - installer tensorflow à la maison : enable longPath
 - permettre de mieux bosser avec hugingface en mettant l'ordi en mode dev : https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
 
+Merci super traducteur. 
+
 
 Dev : 
 

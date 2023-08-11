@@ -61,7 +61,9 @@
                 <p>
                     {% if translation_result %}
                     <div class="translation-result">
-                        <p>{{ translation_result }}</p>
+                        <span style="white-space: pre-line"> <!-- \n -->
+                            <p>{{ translation_result | safe }}</p>      
+                        </span>
                     </div>
                     {% endif %}
                 </p>
