@@ -5,59 +5,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to the Translator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 
 <body>
+
+      
     <div class="container">
         <div class="jumbotron text-white text-center">
-            <h1>Welcome to the Translator</h1>
+
+
+            <h1>* Translater</h1>
+            <h6>The slowest translator, now with AI</h6>
+            <div class="horizontal-line"></div>
+            <br>
+
+            <h2>Translate your files from the selected language to the desired one<br></h2>
+            <div class="intro">
+                You don't know from which language to translate ? Choose "Identify for me" but the process will be slower.<br>
+            </div>           
+            <br>
+            <br>
+
             <form method="POST">
-                <label for="language_from">From:</label>
-                <div class="btn-group" role="group" aria-label="Language From">
-                    <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
-                    <label class="btn btn-outline-primary" for="fr"> French </label>
 
-                    <input type="radio" id="en" name="language_from" value="en" class="btn-check">
-                    <label class="btn btn-outline-primary" for="en"> English </label>
-                </div>
-                <br>
-                
-                <label for="language_to">To:</label>
-                <div class="btn-group" role="group" aria-label="Language To">
-                    <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
-                    <label class="btn btn-outline-primary" for="fr_to"> French </label>
+                <div class="btn-choose">
+                    <label for="language_from">Translate from</label>
+                    <br>
+
+                    <div class="btn-group" role="group" aria-label="Choose the language to translate from">
+
+                        <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
+                        <label class="btn btn-outline-primary" for="fr"> French </label>
+
+                        <input type="radio" id="en" name="language_from" value="en" class="btn-check">
+                        <label class="btn btn-outline-primary" for="en"> English </label>
+
+                        <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
+                        <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
+                    </div>
+                    <br>
+                    <!-- Ajouter un encart qui dis dans quel langue a été faite la derniere traduction si on avait checké IDK -->
+                    <br>
                     
-                    <input type="radio" id="en_to" name="language_to" value="en" class="btn-check">
-                    <label class="btn btn-outline-primary" for="en_to"> English </label>
+                    <label for="language_to">To</label>
+                    <br>
+                    <div class="btn-group" role="group" aria-label="Language To">
+                        <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
+                        <label class="btn btn-outline-primary" for="fr_to"> French </label>
+                        
+                        <input type="radio" id="en_to" name="language_to" value="en" class="btn-check">
+                        <label class="btn btn-outline-primary" for="en_to"> English </label>
+                    </div>
+                    <br>
+                </div>
+                
+                <br>
+                <div style="text-align: left;">
+                    <label for="input_text">Enter your text</label>
+                </div>
+                <textarea type="text" id="input_text" name="input_text" rows="4"required></textarea>
+
+                <div style="text-align: right;">
+                    <button type="submit" class="btn btn-outline-primary">Translate</button>
+                    <!-- <button type="submit">Translate</button> -->
                 </div>
                 <br>
 
-
-                <label for="input_text">Enter Text:</label>
-                <textarea type="text" id="input_text" name="input_text" rows="4"required></textarea>
-                <button type="submit">Translate / Detect Language</button>
-                <br>
-
-                <label for="task">Select Task:</label>
-                <input type="radio" id="translate" name="task" value="translate">
-                <label for="translate">Translate</label>
-                <input type="radio" id="detect" name="task" value="detect">
-                <label for="detect">Detect Language</label>
-                <br>
-                <!-- <button type="submit">Translate</button> -->
                 {% if error_message %}
                 <p class="error">{{ error_message }}</p>
                 {% endif %}
             </form>
         </div>
+
         <div class="row">
 
             <div class="col-md-6">
-                <h2>Translated Text:</h2>
+                <h2>Translated Text</h2>
+                <p>
+                    {% if langs %}
+                    <div class="langs">
+                            <p>{{ langs }}</p>      
+                        </span>
+                    </div>
+                    {% endif %}
+                </p>
                 <p>
                     {% if translation_result %}
                     <div class="translation-result">
@@ -69,19 +109,20 @@
                 </p>
             </div>
 
+            
             <div class="col-md-6">
                 <h2>Download</h2>
                 <p> {% if translation_result %}
-                    <div class="translation-result">
-                        <div class="download-buttons">
-                            <a href="{{ url_for('download_pdf') }}" class="btn btn-primary" download="translated_text.pdf">Download as PDF</a>
+                        <div class="translation-result rounded">
+                            <div class="translation-result">
+                                <div class="download-buttons">
+                                    <a href="{{ url_for('download_pdf') }}" class="btn btn-primary" download="translated_text.pdf">Download as PDF</a>
+                                </div>
                         </div>
-                    </div>
-                    {% endif %}</p>
-
-            </div>
-        </div>
+                        </div>
+                        {% endif %}
+                </p>      
+             </div>
     </div>
-
 </body>
 </html>

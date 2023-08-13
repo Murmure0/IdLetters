@@ -1,25 +1,45 @@
-body {
-    background-color: #f0f0f0;
-    color: #333333;
-}
-
-.jumbotron {
-    background-color: #b3a9fe;
-}
 
 .row {
     margin-top: 20px;
-}
-
-.col-md-6 {
-    border: 1px solid #ccc;
-    background-color: #e7e4fe;
+    padding: 20px;
+  }
+  
+  .col-md-6 {
+    border: 1px solid #e2ffff;
+    background-color: #fddeff;
     padding: 20px;
     margin-bottom: 20px;
+    border-radius: 0.3rem;
 }
 
-h1, h2 {
-    color: #fff6eb;
+h1 {
+    color: #6640b7;
+    text-align: left;
+    font-family: "Tilt Prism";
+    font-size: 1.5cm;
+}
+h2 {
+    color: #6640b7;
+    text-align: left;
+    font-family: "Open Sans";
+}
+h6 {
+    color: #fffff1;
+    text-align: right;
+    font-family: "Open Sans";
+}
+
+.intro {
+    color: #fffff1;
+    text-align: left;
+    font-family: "Open Sans";
+}
+
+.horizontal-line {
+  width: 100%;
+  height: 3px;
+  background-image: linear-gradient(to right, #ffffe0, #f3c3ed);
+  margin: 0 auto; /* Centrer la ligne horizontalement */
 }
 
 textarea {
@@ -28,10 +48,51 @@ textarea {
 }
 
 
-.btn-group label {
-    margin-right: 10px; /* Ajustez la valeur de la marge selon vos besoins */
-}
+body {
+    background-color: #f0f8ff; /* Blue pastel */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header styles */
+  header {
+    background-color: #e6e6fa; /* Violet pastel */
+    padding: 10px;
+  }
+  
+  /* Navigation styles */
+  .navbar {
+    background-color: #ffffe0; /* Yellow pastel */
+  }
+  
+  /* Jumbotron styles */
+  .jumbotron {
+    background-color: #c5c5fa; /* Violet pastel */
+    padding: 20px;
+    margin-bottom: 0;
+    color: #333;
+  }
+  
+  /* Button styles */
+  .btn {
+    background-color: #fffef3; /* Yellow pastel */
+    border-color: #edfeff; /* Yellow pastel */
+    color: #333;
+  }
+  
+  /* Input styles */
+  .form-control {
+    background-color: #f0f8ff; /* Blue pastel */
+    border-color: #f0f8ff; /* Blue pastel */
+    color: #333;
+  }
 
-.btn-check{
-    margin-right: 5px;
+  .btn-choose{
+    text-align: left;
+  }
+
+.langs{
+  color: #9e91ff;
 }
+  /* .text-zone{
+    text-align: right;
+  } */

@@ -31,16 +31,20 @@ def translate_text():
         return render_template('translate.html', translation_result=None)
     
     # Get the text, the task (translate/Dectect lang), the lang to translate
-    input_text = request.form.get('input_text')
-    task = request.form.get('task')
+    transl_from = request.form.get('language_from')                
     transl_to = request.form.get('language_to')
+    input_text = request.form.get('input_text')
 
-    if task == 'translate':
-        transl_from = request.form.get('language_from')                
-    elif task == 'detect':
+
+    if transl_from == 'idk':
         transl_from = translateText.detec_lang(input_text)
 
-    if transl_from == transl_to:
+
+    if not transl_to or not transl_from:
+        error_message = "Please check the button for the translation."
+        return render_template('translate.html', error_message=error_message)
+
+    if transl_from and (transl_from == transl_to):
         error_message = "Please select different languages for the translation."
         return render_template('translate.html', error_message=error_message)
 
@@ -48,9 +52,10 @@ def translate_text():
     translation_result = translateText.make_trad(input_text, transl_from, transl_to)
 
     # Translated text processing
+    langs = f"Translation done from {transl_from} to {transl_to}."
     translation_result = translation_result.replace(".", ".\n")
     session['translation_result'] = translation_result
-    return render_template('translate.html', translation_result=session.get('translation_result'))
+    return render_template('translate.html', translation_result=session.get('translation_result'), langs=langs)
 
 @app.route('/download_pdf')
 def download_pdf():
