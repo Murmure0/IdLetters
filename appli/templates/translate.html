@@ -24,7 +24,7 @@
         <div class="jumbotron text-white text-center">
 
 
-            <h1>* Translater</h1>
+            <h1>* Transletter</h1>
             <h6>The slowest translator, now with AI</h6>
             <div class="horizontal-line"></div>
             <br>
@@ -68,27 +68,60 @@
                     </div>
                     <br>
                 </div>
-                
-                <br>
-                <div style="text-align: left;">
-                    <label for="input_text">Enter your text</label>
-                </div>
-                <textarea type="text" id="input_text" name="input_text" rows="4"required></textarea>
 
-                <div style="text-align: right;">
-                    <button type="submit" class="btn btn-outline-primary">Translate</button>
-                    <!-- <button type="submit">Translate</button> -->
-                </div>
-                <br>
+                <!-- Card to get text -->
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="optionsTabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#textTab">Text</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#pdfTab">PDF</a>
+                                </li>
+                            </ul>
+                        </div>
 
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <!-- Text section -->
+                                <div class="tab-pane fade show active" id="textTab">
+                                    <form action="submit_action_text" method="post">
+                                        <div class="form-group" style="text-align: left;">
+                                            <label for="input_text">Enter your text</label>
+                                            <textarea class="form-control" id="input_text" name="input_text"></textarea>
+                                        </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                                
+                                <!-- PDF section -->
+                                <div class="tab-pane fade" id="pdfTab">
+                                    <form action="submit_action_pdf" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="input_pdf">Upload a pdf</label>
+                                            <input type="file" class="form-control-file" id="input_pdf" name="input_pdf">
+                                        </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
                 {% if error_message %}
                 <p class="error">{{ error_message }}</p>
                 {% endif %}
             </form>
         </div>
 
+        <!-- Result part -->
         <div class="row">
-
+            <!-- Col text traduit -->
             <div class="col-md-6">
                 <h2>Translated Text</h2>
                 <p>
@@ -111,6 +144,7 @@
             </div>
 
             
+            <!-- Col dl pdf -->
             <div class="col-md-6">
                 <h2>Download</h2>
                 <p> {% if translation_result %}
@@ -125,5 +159,9 @@
                 </p>      
              </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
