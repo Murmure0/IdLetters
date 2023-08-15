@@ -52,7 +52,15 @@ def translate_text():
     if not input_text:
         pdf_file = request.files['input_pdf']
         return importing_pdf(pdf_file)
-        
+    # TODODOO :
+    # estimer quelle longueur de texte on peut envoyer dans l'api
+
+    # extraire le text du pdf grace à langChain : voir test/langChain.ipynb
+    # afficher le text dans la zone de text et demander aux gens d'enlever les informations qui les concernent
+    # voir comment gerer un pdf a plusieurs pages
+    # segmenté le text s'il est trop long pour l'API et append dans un pdf à download
+
+
     # Get the langs from/to translate
     transl_from = request.form.get('language_from')
     # Identify the language from the text given
