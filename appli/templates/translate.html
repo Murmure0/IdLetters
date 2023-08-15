@@ -22,8 +22,6 @@
       
     <div class="container">
         <div class="jumbotron text-white text-center">
-
-
             <h1>* Transletter</h1>
             <h6>The slowest translator, now with AI</h6>
             <div class="horizontal-line"></div>
@@ -36,39 +34,7 @@
             <br>
             <br>
 
-            <form method="POST">
-
-                <div class="btn-choose">
-                    <label for="language_from">Translate from</label>
-                    <br>
-
-                    <div class="btn-group" role="group" aria-label="Choose the language to translate from">
-
-                        <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
-                        <label class="btn btn-outline-primary" for="fr"> French </label>
-
-                        <input type="radio" id="en" name="language_from" value="en" class="btn-check">
-                        <label class="btn btn-outline-primary" for="en"> English </label>
-
-                        <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
-                        <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
-                    </div>
-                    <br>
-                    <!-- Ajouter un encart qui dis dans quel langue a été faite la derniere traduction si on avait checké IDK -->
-                    <br>
-                    
-                    <label for="language_to">To</label>
-                    <br>
-                    <div class="btn-group" role="group" aria-label="Language To">
-                        <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
-                        <label class="btn btn-outline-primary" for="fr_to"> French </label>
-                        
-                        <input type="radio" id="en_to" name="language_to" value="en" class="btn-check">
-                        <label class="btn btn-outline-primary" for="en_to"> English </label>
-                    </div>
-                    <br>
-                </div>
-
+            <form method="POST" enctype="multipart/form-data">
                 <!-- Card to get text -->
                 <div class="container mt-5">
                     <div class="card">
@@ -87,41 +53,70 @@
                             <div class="tab-content">
                                 <!-- Text section -->
                                 <div class="tab-pane fade show active" id="textTab">
-                                    <form action="submit_action_text" method="post">
                                         <div class="form-group" style="text-align: left;">
                                             <label for="input_text">Enter your text</label>
                                             <textarea class="form-control" id="input_text" name="input_text"></textarea>
                                         </div>
                                         <br>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
                                 </div>
                                 
                                 <!-- PDF section -->
                                 <div class="tab-pane fade" id="pdfTab">
-                                    <form action="submit_action_pdf" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="input_pdf">Upload a pdf</label>
                                             <input type="file" class="form-control-file" id="input_pdf" name="input_pdf">
                                         </div>
                                         <br>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
+                                    <br>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Language section -->
+                    <div class="btn-choose">
+                        <label for="language_from">Translate from</label>
+                        <br>
+                        <div class="btn-group" role="group" aria-label="Choose the language to translate from">
+                            <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
+                            <label class="btn btn-outline-primary" for="fr"> French </label>
+    
+                            <input type="radio" id="en" name="language_from" value="en" class="btn-check">
+                            <label class="btn btn-outline-primary" for="en"> English </label>
+    
+                            <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
+                            <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
+                        </div>
+                        <br><br>
+                        
+                        <label for="language_to">To</label>
+                        <br>
+                        <div class="btn-group" role="group" aria-label="Language To">
+                            <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
+                            <label class="btn btn-outline-primary" for="fr_to"> French </label>
+                            
+                            <input type="radio" id="en_to" name="language_to" value="en" class="btn-check">
+                            <label class="btn btn-outline-primary" for="en_to"> English </label>
+                        </div>
+                        <br>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                    {% if pdf_uploaded %}
+                    <p class="pdf_uploaded">{{ pdf_uploaded }}</p>
+                    {% endif %}
+                    {% if error_message %}
+                    <p class="error">{{ error_message }}</p>
+                    {% endif %}
                 </div>
-        
-                {% if error_message %}
-                <p class="error">{{ error_message }}</p>
-                {% endif %}
+
             </form>
         </div>
 
         <!-- Result part -->
         <div class="row">
-            <!-- Col text traduit -->
+            <!-- Translated text -->
             <div class="col-md-6">
                 <h2>Translated Text</h2>
                 <p>
@@ -144,7 +139,7 @@
             </div>
 
             
-            <!-- Col dl pdf -->
+            <!-- Download pdf -->
             <div class="col-md-6">
                 <h2>Download</h2>
                 <p> {% if translation_result %}

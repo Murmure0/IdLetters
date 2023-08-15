@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 
 # External functions
 import sys
-sys.path.insert(0, 'C:/Users/admindc/Desktop/finalProject/appli/toolBox/')
+sys.path.insert(0, 'appli/toolBox/')
 from toolBox import translateText
 
 # Debug
@@ -23,14 +23,14 @@ import logging
 
 # ------------------------------------------------------------------------- #
 # APP
-app = Flask(__name__, static_folder="C:/Users/admindc/Desktop/finalProject/appli/static")
+app = Flask(__name__)
 
 # Session
 app.secret_key = '123' # you should not see that, shoo
 
 # ------------------------------------------------------------------------- #
 # PDF upload
-UPLOAD_FOLDER = "appli/uploads/"
+UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -41,13 +41,18 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/', methods=['GET', 'POST'])
 def translate_text():
     # Default
-    if request.method != 'POST':
+    if request.method == 'GET':
         return render_template('translate.html', translation_result=None)
 
+
     # Get the text
+    # from the text zone
     input_text = request.form.get('input_text')
-    pdf_file = request.files['input_pdf']
-    # pdf_file = request.files.get('input_pdf')
+    # from pdf : uploading pdf in /uploads
+    if not input_text:
+        pdf_file = request.files['input_pdf']
+        return importing_pdf(pdf_file)
+        
     # Get the langs from/to translate
     transl_from = request.form.get('language_from')
     # Identify the language from the text given
@@ -56,20 +61,20 @@ def translate_text():
     transl_to = request.form.get('language_to')
 
     # Error checking
-    if not transl_to or not transl_from:
-        error_message = "Please check the button for the translation."
-        return render_template('translate.html', error_message=error_message)
-
+    error_message = None
     if not input_text and not pdf_file:
         error_message = "Please provide a text or a pdf for the translation."
-        return render_template('translate.html', error_message=error_message)
 
     if transl_from == transl_to:
-        error_message = "Please select different languages for the translation."
-        return render_template('translate.html', error_message=error_message)
-    
+        error_message = f"Please select different languages for the translation.Checked: {transl_from} and {transl_to}"
 
-    # Translation of text
+    if not input_text and not pdf_file and (not transl_to or not transl_from):
+        error_message = "Please check the button for the translation."
+
+    if error_message:
+        return render_template('translate.html', error_message=error_message)
+
+    # Translation 
     if input_text :
         translation_result = translateText.make_trad(input_text, transl_from, transl_to)
 
@@ -78,18 +83,7 @@ def translate_text():
         translation_result = translation_result.replace(".", ".<br />")
         session['translation_result'] = translation_result
         return render_template('translate.html', translation_result=session.get('translation_result'), langs=langs)
-    # Process pdf
-    elif pdf_file :
-        if pdf_file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if pdf_file and allowed_file(pdf_file.filename):
-            filename = secure_filename(pdf_file.filename)
-            pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            # session['filename'] = filename
-            # session['pdf_file'] = pdf_file
-            
-            # submit_action_pdf()
+
     return render_template('translate.html', translation_result=None)
 
 
@@ -105,26 +99,19 @@ def download_pdf():
     })
 
 
-# @app.route('/submit_action_pdf', methods=['GET','POST'])
-# def submit_action_pdf():
-#     pdf_file = session.get('pdf_file')
-#     filename = session.get('filename')
-#     if not pdf_file:
-#         return render_template('index copy.html')
-#     if not filename: # pas de filename
-#         return render_template('index.html')
-#     pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#     return render_template('translate.html', translation_result=None)
-    # logging(f"name pdf = {filename}")
-#     return redirect(url_for('download_file', name=filename))
-
-# @app.route('/uploads/<name>')
-# def download_file(name):
-#     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
-
 # ------------------------------------------------------------------------- #
 # ToolBox
 
+def importing_pdf(pdf_file):
+    if pdf_file.filename == '':
+            flash('No selected file')
+            return render_template('translate.html', translation_result=None)
+    if pdf_file and allowed_file(pdf_file.filename):
+        filename = secure_filename(pdf_file.filename)
+        pdf_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return render_template('translate.html', pdf_uploaded="le pdf a été trouvé et chargé youpi")
+    return render_template('translate.html', pdf_uploaded="pas de pdf chargé : vérifié l'extension du fichier")
+    
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
