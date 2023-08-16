@@ -5,12 +5,15 @@
   }
   
   .col-md-6 {
+    text-align: left;
+    color:black;
     border: 1px solid #e2ffff;
     background-color: #fddeff;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 0.3rem;
 }
+
 
 h1 {
     color: #6640b7;

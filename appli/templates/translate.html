@@ -43,69 +43,78 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#textTab">Text</a>
                                 </li>
+                                
+                                {% if first_page %}
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#pdfTab">PDF</a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
-
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <!-- Text section -->
-                                <div class="tab-pane fade show active" id="textTab">
-                                        <div class="form-group" style="text-align: left;">
-                                            <label for="input_text">Enter your text</label>
-                                            <textarea class="form-control" id="input_text" name="input_text"></textarea>
-                                        </div>
-                                        <br>
-                                </div>
-                                
-                                <!-- PDF section -->
-                                <div class="tab-pane fade" id="pdfTab">
-                                        <div class="form-group">
-                                            <label for="input_pdf">Upload a pdf</label>
-                                            <input type="file" class="form-control-file" id="input_pdf" name="input_pdf">
-                                        </div>
-                                        <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Language section -->
-                    <div class="btn-choose">
-                        <label for="language_from">Translate from</label>
-                        <br>
-                        <div class="btn-group" role="group" aria-label="Choose the language to translate from">
-                            <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
-                            <label class="btn btn-outline-primary" for="fr"> French </label>
-    
-                            <input type="radio" id="en" name="language_from" value="en" class="btn-check">
-                            <label class="btn btn-outline-primary" for="en"> English </label>
-    
-                            <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
-                            <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
-                        </div>
-                        <br><br>
-                        
-                        <label for="language_to">To</label>
-                        <br>
-                        <div class="btn-group" role="group" aria-label="Language To">
-                            <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
-                            <label class="btn btn-outline-primary" for="fr_to"> French </label>
                             
-                            <input type="radio" id="en_to" name="language_to" value="en" class="btn-check">
-                            <label class="btn btn-outline-primary" for="en_to"> English </label>
-                        </div>
-                        <br>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <!-- Text section -->
+                                        <div class="tab-pane fade show active" id="textTab">
+                                                <div class="form-group" style="text-align: left;">
+                                                    {% if first_page %}
+                                                    <label for="input_text">Enter your text</label>
+                                                    {% else %}
+                                                    <label for="input_text">Text from your pdf.<br>Please remove any sensible informations about you : name, adress, phone number, id ...</label>
+                                                    {% endif %}
+                                                    <textarea class="form-control" id="input_text" name="input_text">{% if not first_page %}{% if patate %}{{patate}}{% endif %}{% endif %}</textarea>
+                                                </div>
+                                                <br>
+                                                                            <!-- Language section -->
+                                                <div class="btn-choose">
+                                                    <label for="language_from">Translate from</label>
+                                                    <br>
+                                                    <div class="btn-group" role="group" aria-label="Choose the language to translate from">
+                                                        <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
+                                                        <label class="btn btn-outline-primary" for="fr"> French </label>
+                                
+                                                        <input type="radio" id="en" name="language_from" value="en" class="btn-check" checked="checked">
+                                                        <label class="btn btn-outline-primary" for="en"> English </label>
+                                
+                                                        <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
+                                                        <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
+                                                    </div>
+                                                    <br><br>
+                                                    
+                                                    <label for="language_to">To</label>
+                                                    <br>
+                                                    <div class="btn-group" role="group" aria-label="Language To">
+                                                        <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check" checked="checked">
+                                                        <label class="btn btn-outline-primary" for="fr_to"> French </label>
+                                                        
+                                                        <input type="radio" id="en_to" name="language_to" value="en" class="btn-check" >
+                                                        <label class="btn btn-outline-primary" for="en_to"> English </label>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                        </div>
+                                        {% if first_page %}
+                                        <!-- PDF section -->
+                                        <div class="tab-pane fade" id="pdfTab">
+                                                <div class="form-group">
+                                                    <label for="input_pdf">Upload a pdf</label><br>
+                                                    <input type="file" class="form-control-file" id="input_pdf" name="input_pdf">
+                                                </div>
+                                                <!-- TODO : pouvoir checker les fichiers deja présents sans avoir a en soumettre un nouveau -->
+                                                <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                        {% endif %}
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
 
                     {% if pdf_uploaded %}
                     <p class="pdf_uploaded">{{ pdf_uploaded }}</p>
                     {% endif %}
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
                     {% if error_message %}
                     <p class="error">{{ error_message }}</p>
                     {% endif %}
@@ -114,47 +123,48 @@
             </form>
         </div>
 
-        <!-- Result part -->
-        <div class="row">
-            <!-- Translated text -->
-            <div class="col-md-6">
-                <h2>Translated Text</h2>
-                <p>
-                    {% if langs %}
-                    <div class="langs">
-                            <p>{{ langs }}</p>      
-                        </span>
-                    </div>
-                    {% endif %}
-                </p>
-                <p>
-                    {% if translation_result %}
-                    <div class="translation-result">
-                        <span style="white-space: pre-line"> <!-- \n -->
-                            <p>{{ translation_result | safe }}</p>      
-                        </span>
-                    </div>
-                    {% endif %}
-                </p>
-            </div>
-
-            
-            <!-- Download pdf -->
-            <div class="col-md-6">
-                <h2>Download</h2>
-                <p> {% if translation_result %}
-                        <div class="translation-result rounded">
-                            <div class="translation-result">
-                                <div class="download-buttons">
-                                    <a href="{{ url_for('download_pdf') }}" class="btn btn-primary" download="translated_text.pdf">Download as PDF</a>
-                                </div>
-                        </div>
+        {% if translation_done %}
+            <!-- Result part -->
+            <div class="row">
+                <!-- Translated text -->
+                <div class="col-md-6">
+                    <h2>Translated Text</h2>
+                    <p>
+                        {% if langs %}
+                        <div class="langs">
+                                <p>{{ langs }}</p>      
+                            </span>
                         </div>
                         {% endif %}
-                </p>      
-             </div>
-    </div>
+                    </p>
+                    <p>
+                        {% if translation_result %}
+                        <div class="translation-result">
+                            <span style="white-space: pre-line"> <!-- \n -->
+                                <p>{{ translation_result | safe }}</p>      
+                            </span>
+                        </div>
+                        {% endif %}
+                    </p>
+                </div>
 
+                
+                <!-- Download pdf -->
+                <div class="col-md-6">
+                    <h2>Download</h2>
+                    <p> {% if translation_result %}
+                            <div class="translation-result rounded">
+                                <div class="translation-result">
+                                    <div class="download-buttons">
+                                        <a href="{{ url_for('download_pdf') }}" class="btn btn-primary" download="translated_text.pdf">Download as PDF</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                    </p>      
+                </div>
+            </div>
+        {% endif %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
