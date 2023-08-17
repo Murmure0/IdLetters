@@ -1,2 +1,5 @@
 config.json
 *.pdf
+*.jpg
+*.jpeg
+*.png

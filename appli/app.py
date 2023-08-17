@@ -1,5 +1,5 @@
 # App
-from flask import Flask, render_template, request, Response,session
+from flask import Flask, render_template, request, Response,session,flash
 import requests
 # Creating PDF
 from reportlab.lib.pagesizes import letter
@@ -10,12 +10,14 @@ from reportlab.platypus import Paragraph
 
 # Upload pdf
 import os
-from flask import flash, redirect, url_for, send_from_directory
-from werkzeug.utils import secure_filename
 from os import walk
+from werkzeug.utils import secure_filename
 
 # Extract txt from pdf
 from langchain.document_loaders import UnstructuredFileLoader
+
+# Extract txt from img
+from langchain.document_loaders.image import UnstructuredImageLoader
 
 # External functions
 import sys
@@ -29,11 +31,8 @@ import logging
 # ------------------------------------------------------------------------- #
 
     # TODODOO :
-    # estimer quelle longueur de texte on peut envoyer dans l'api
+    # 1024 token pris par  appel API :
 
-    # extraire le text du pdf grace à langChain : voir test/langChain.ipynb
-    # afficher le text dans la zone de text et demander aux gens d'enlever 
-    # les informations qui les concernent
     # voir comment gerer un pdf a plusieurs pages
     # segmenté le text s'il est trop long pour l'API et append dans un pdf à download
 
@@ -48,7 +47,7 @@ app.secret_key = '123' # you should not see that, shoo
 # ------------------------------------------------------------------------- #
 # PDF upload
 UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = {'pdf'}
+ALLOWED_EXTENSIONS = {'pdf','jpg', 'jpeg', 'png', 'heif', 'heic'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -83,6 +82,9 @@ def translate_text():
     # Get text from PDF : redirect to text zone 
     if not input_text:
         pdf_file = request.files['input_pdf']
+        if not pdf_file:
+            img_file = request.files['input_img']
+            return importing_img(img_file)
         return importing_pdf(pdf_file)
 
 
@@ -132,6 +134,24 @@ def download_pdf():
 
 # ------------------------------------------------------------------------- #
 # ToolBox
+
+def importing_img(img_file):
+    if img_file.filename == '':
+            flash('No selected file')
+            return render_template('translate.html', translation_result=None)
+    if img_file and allowed_file(img_file.filename):
+        filename = secure_filename(img_file.filename)
+        img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        img_file.save(img_path)
+        txt_from_img = extract_img_txt(img_path)
+        return render_template('translate.html', img_uploaded="img uploaded", txt_from_img=txt_from_img)
+    return render_template('translate.html', img_uploaded="img not uploaded, extention allowed : .jpg, .jpeg, .png")
+
+def extract_img_txt(img_path):
+    loader = UnstructuredImageLoader("imgTestOnem.jpg")
+    data = loader.load()
+    txt_from_img = data[0].page_content
+    return txt_from_img
 
 def importing_pdf(pdf_file):
     if pdf_file.filename == '':

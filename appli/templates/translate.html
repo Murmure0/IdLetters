@@ -46,6 +46,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#pdfTab">PDF</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#imgTab">Image</a>
+                                </li>
                             </ul>
                         </div>
                             
@@ -56,7 +59,7 @@
                                         <div class="form-group" style="text-align: left;">
                                             <label for="input_text">Enter your text<br>
                                                 Please remove any sensible informations about you : name, adress, phone number, id ...</label>
-                                            <textarea class="form-control" id="input_text" name="input_text">{% if txt_from_pdf %}{{txt_from_pdf}}{% endif %}</textarea>
+                                            <textarea class="form-control" id="input_text" name="input_text">{% if txt_from_pdf %}{{txt_from_pdf}}{% endif %}{% if txt_from_img %}{{txt_from_img}}{% endif %}</textarea>
                                         </div>
                                         <br>
                                                                     <!-- Language section -->
@@ -97,9 +100,23 @@
                                         <br>
                                     <br>
                                 </div>
+                                <!-- Image section -->
+                                <div class="tab-pane fade" id="pdfTab">
+                                        <div class="form-group">
+                                            <label for="input_pdf">Upload an image</label><br>
+                                            <input type="file" class="form-control-file" id="input_img" name="input_img">
+                                        </div>
+                                        <!-- TODO : pouvoir se synchroniser avec un cloud pour acceder direct aux photos prises par tel -->
+                                        <br>
+                                    <br>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    {% if img_uploaded %}
+                    <p class="img_uploaded">{{ img_uploaded }}</p>
+                    {% endif %}
 
                     {% if pdf_uploaded %}
                     <p class="pdf_uploaded">{{ pdf_uploaded }}</p>
