@@ -57,25 +57,34 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def translate_text():
+    first_page=True
     # Default
-    first_page = True
     if request.method == 'GET':
-        return render_template('translate.html', translation_result=None, first_page=first_page)
+        return render_template('translate.html', translation_result=None)
 
-    # Get the text
-    # from the text zone
-    input_text = request.form.get('input_text')
-    # from pdf : uploading pdf in /uploads
-    if not input_text:
-        pdf_file = request.files['input_pdf']
-        return importing_pdf(pdf_file, first_page)
-
+    # Get text from text zone
+    try:
+        input_text = request.form.get('input_text')
+    except Exception as e:
+        error_message= f"Pas de texte soumis : {input_text}|erreur:{e}"
     # Get the langs from/to translate
     transl_from = request.form.get('language_from')
+
+
     # Identify the language from the text given
     if transl_from == 'idk':
-        transl_from = translateText.detec_lang(input_text)
+        try :
+            json_lang = translateText.detec_lang(input_text)
+            transl_from = json_lang[0]['label']
+        except Exception as e:
+            error_message=f'error : {json_lang}|{e}'
     transl_to = request.form.get('language_to')
+
+    # Get text from PDF : redirect to text zone 
+    if not input_text:
+        pdf_file = request.files['input_pdf']
+        return importing_pdf(pdf_file)
+
 
     # Error checking
     error_message = None
@@ -93,11 +102,11 @@ def translate_text():
 
     # Translation 
     if input_text :
-        translation_result = translateText.make_trad(input_text, transl_from, transl_to)
+        translation_result_json = translateText.make_trad(input_text, transl_from, transl_to)
         try:
-            translation_result= translation_result[0]['translation_text']
+            translation_result= translation_result_json[0]['translation_text']
         except Exception as e:
-            error_message=f"La traduction du pdf a foiré :{e}"
+            error_message=f"La traduction a foiré | erreur: {translation_result_json}"
             return render_template('translate.html', error_message=error_message)
         # Translated text processing
         langs = f"Translation done from {transl_from} to {transl_to}."
@@ -124,7 +133,7 @@ def download_pdf():
 # ------------------------------------------------------------------------- #
 # ToolBox
 
-def importing_pdf(pdf_file, first_page=True):
+def importing_pdf(pdf_file):
     if pdf_file.filename == '':
             flash('No selected file')
             return render_template('translate.html', translation_result=None)
@@ -132,10 +141,9 @@ def importing_pdf(pdf_file, first_page=True):
         filename = secure_filename(pdf_file.filename)
         pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         pdf_file.save(pdf_path)
-        patate = extract_pdf_txt(pdf_path)
-        first_page = False
-        return render_template('translate.html', pdf_uploaded="pdf uploaded", patate=patate, first_page=first_page)
-    return render_template('translate.html', pdf_uploaded="pdf not uploaded, extention allowed : .pdf", first_page=first_page)
+        txt_from_pdf = extract_pdf_txt(pdf_path)
+        return render_template('translate.html', pdf_uploaded="pdf uploaded", txt_from_pdf=txt_from_pdf)
+    return render_template('translate.html', pdf_uploaded="pdf not uploaded, extention allowed : .pdf")
     
 def extract_pdf_txt(pdf_file):
 
@@ -162,7 +170,8 @@ def generate_pdf_content(text):
 
     # Draw the Paragraph on the canvas
     paragraph.wrapOn(c, 400, 800)
-    paragraph.drawOn(c, 100, 675)
+    _, height = paragraph.wrap(400, 800)
+    paragraph.drawOn(c, 100, 800 - height-75)
 
     c.save()
     buffer.seek(0)
@@ -175,5 +184,5 @@ if __name__ == '__main__':
     # Debug:
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-    app.run(debug=True)
-    # app.run()
+    app.run(debug=True, port=4995)
+    # app.run(port=4995)
