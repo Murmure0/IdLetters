@@ -31,7 +31,7 @@ import logging
 # ------------------------------------------------------------------------- #
 
     # TODODOO :
-    # 1024 token pris par  appel API :
+    # 1024 token/appel API :
 
     # voir comment gerer un pdf a plusieurs pages
     # segmenté le text s'il est trop long pour l'API et append dans un pdf à download
@@ -45,7 +45,8 @@ app = Flask(__name__)
 app.secret_key = '123' # you should not see that, shoo
 
 # ------------------------------------------------------------------------- #
-# PDF upload
+# PDF upload 
+
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {'pdf','jpg', 'jpeg', 'png', 'heif', 'heic'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
