@@ -59,7 +59,7 @@
                                         <div class="form-group" style="text-align: left;">
                                             <label for="input_text">Enter your text<br>
                                                 Please remove any sensible informations about you : name, adress, phone number, id ...</label>
-                                            <textarea class="form-control" id="input_text" name="input_text">{% if txt_from_pdf %}{{txt_from_pdf}}{% endif %}{% if txt_from_img %}{{txt_from_img}}{% endif %}</textarea>
+                                            <textarea class="form-control" id="input_text" name="input_text">{%if input_text%}{{input_text}}{%endif%}{% if txt_from_pdf %}{{txt_from_pdf}}{% endif %}{% if txt_from_img %}{{txt_from_img}}{% endif %}</textarea>
                                         </div>
                                         <br>
                                                                     <!-- Language section -->
@@ -103,7 +103,7 @@
                                 <!-- Image section -->
                                 <div class="tab-pane fade" id="imgTab">
                                         <div class="form-group">
-                                            <label for="input_pdf">Upload an image</label><br>
+                                            <label for="input_img">Upload an image</label><br>
                                             <input type="file" class="form-control-file" id="input_img" name="input_img">
                                         </div>
                                         <!-- TODO : pouvoir se synchroniser avec un cloud pour acceder direct aux photos prises par tel -->
