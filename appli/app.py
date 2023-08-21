@@ -49,12 +49,16 @@ def translate_text():
         return render_template('translate.html', translation_result=None)
 
     # # Get text from PDF/Img/Text zone:
-    # selected_language = request.form['language']
-    # session['prev_lang'] = "en"
-    # session['title'] = 'Translate your files from the selected language to the desired one'
+    selected_language = request.form['language']
+    session['prev_lang'] = "en"
+    session['title'] = 'Translate your files from the selected language to the desired one'
     # session['body'] = "You don't know from which language to translate ? Choose "Identify for me" but the process will be slower."
-    # if selected_language:
-    #     translated_txt = y
+    if selected_language:
+        try:
+            session['title'] = translateText.make_trad_ppl(session.get('title'), session.get('prev_lang'), selected_language)
+        except OSError as error:
+            error_message = f"Sorry, translation from {transl_from} to {transl_to} not available yet."
+        return render_template('translate.html', title=session.get('title'))
 
 
     if 'input_pdf' in request.files:

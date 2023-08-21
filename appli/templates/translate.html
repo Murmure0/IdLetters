@@ -27,13 +27,14 @@
             <div class="horizontal-line"></div>
             <br>
 
-            <form action="/set_language" method="post">
+            <form method="post">
                 <button type="submit" name="language" value="fr"><img src="static\\fr.svg" alt="French Flag"> Français</button>
                 <button type="submit" name="language" value="en"  checked="checked"><img src="path_to_english_flag.png" alt="English Flag"> English</button>
-                <button type="submit" name="language" value="de"><img src="path_to_german_flag.png" alt="German Flag"> Deutsch</button>
+                <button type="submit" name="language" value="de"><img src="static\\de.svg" alt="German Flag"> Deutsch</button>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
             </form>
 
-            <h2>'Translate your files from the selected language to the desired one'<br></h2>
+            <h2>{{title}}<br></h2>
             <div class="intro">
                 You don't know from which language to translate ? Choose "Identify for me" but the process will be slower.<br>
             </div>           
