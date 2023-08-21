@@ -27,7 +27,13 @@
             <div class="horizontal-line"></div>
             <br>
 
-            <h2>Translate your files from the selected language to the desired one<br></h2>
+            <form action="/set_language" method="post">
+                <button type="submit" name="language" value="fr"><img src="static\\fr.svg" alt="French Flag"> Français</button>
+                <button type="submit" name="language" value="en"  checked="checked"><img src="path_to_english_flag.png" alt="English Flag"> English</button>
+                <button type="submit" name="language" value="de"><img src="path_to_german_flag.png" alt="German Flag"> Deutsch</button>
+            </form>
+
+            <h2>'Translate your files from the selected language to the desired one'<br></h2>
             <div class="intro">
                 You don't know from which language to translate ? Choose "Identify for me" but the process will be slower.<br>
             </div>           
@@ -67,25 +73,63 @@
                                             <label for="language_from">Translate from</label>
                                             <br>
                                             <div class="btn-group" role="group" aria-label="Choose the language to translate from">
+                        
+                                                <input type="radio" id="idk" name="language_from" value="idk" class="btn-check" checked="checked">
+                                                <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
+
+                                                <input type="radio" id="en" name="language_from" value="en" class="btn-check">
+                                                <label class="btn btn-outline-primary" for="en"> English </label>
+
+                                                <input type="radio" id="nl_from" name="language_from" value="nl" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="nl_from"> Dutch </label>
+
                                                 <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
                                                 <label class="btn btn-outline-primary" for="fr"> French </label>
-                        
-                                                <input type="radio" id="en" name="language_from" value="en" class="btn-check" checked="checked">
-                                                <label class="btn btn-outline-primary" for="en"> English </label>
-                        
-                                                <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
-                                                <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
+                                                
+                                                <input type="radio" id="de_from" name="language_from" value="de" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="de_from"> German </label>
+                                                
+                                                <input type="radio" id="es_from" name="language_from" value="es" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="es_from"> Spanish </label>
+                                                
+                                                <input type="radio" id="pl_from" name="language_from" value="pl" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="pl_from"> Polish </label>
+                                                
+                                                <input type="radio" id="ar_from" name="language_from" value="ar" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="ar_from"> Arabic </label>
+                                                
+                                                <input type="radio" id="ru_from" name="language_from" value="ru" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="ru_from"> Russian </label>
                                             </div>
                                             <br><br>
                                             
                                             <label for="language_to">To</label>
                                             <br>
                                             <div class="btn-group" role="group" aria-label="Language To">
-                                                <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check" checked="checked">
+                                                
+                                                <input type="radio" id="en_to" name="language_to" value="en" class="btn-check"  checked="checked">
+                                                <label class="btn btn-outline-primary" for="en_to"> English </label>
+                                                
+                                                <input type="radio" id="nl_to" name="language_to" value="nl" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="nl_to"> Dutch </label>
+
+                                                <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
                                                 <label class="btn btn-outline-primary" for="fr_to"> French </label>
                                                 
-                                                <input type="radio" id="en_to" name="language_to" value="en" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="en_to"> English </label>
+                                                <input type="radio" id="de_to" name="language_to" value="de" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="de_to"> German </label>
+                                                
+                                                <input type="radio" id="es_to" name="language_to" value="es" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="es_to"> Spanish </label>
+                                                
+                                                <input type="radio" id="pl_to" name="language_to" value="pl" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="pl_to"> Polish </label>
+                                                   
+                                                <input type="radio" id="ar_from" name="language_from" value="ar" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="ar_from"> Arabic </label>
+                                                
+                                                <input type="radio" id="ru_from" name="language_from" value="ru" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="ru_from"> Russian </label>
                                             </div>
                                             <br>
                                         </div>

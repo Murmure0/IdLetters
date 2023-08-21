@@ -9,13 +9,17 @@ lang_dict = {
     "fr" : "french",
     "en" : "english",
     "de" : "german",
+
     "es" : "spanish",
     "nl" : "dutch",
     "pl" : "polish",
+
+    "ru" : "russe",
+    "ar" : "arabic"
 }
 
 # Languages we could identify / could make the traduction :
-# arabic (ar), 
+# arabic (ar),          ok : ar to : fr,en, es, de,pl, ru; from to ar:fr, en, de, es ru|| pas ok , ar to: nl; from to ar: nl,pl
 # bulgarian (bg),
 # german (de), /        OK
 # modern greek (el), 
@@ -25,10 +29,10 @@ lang_dict = {
 # hindi (hi), 
 # italian (it), /       ok : it/fr-en-de-es; en-de-es-/it 
 # japanese (ja), 
-# dutch (nl), /         ok :nl/fr; nl/en; nl/es; en/nl; de/nl; es/nl || pas ok : nl/de, fr/nl
+# dutch (nl), /         ok : nl/fr; nl/en; nl/es; en/nl; de/nl; es/nl || pas ok : nl/de, fr/nl
 # polish (pl),          ok : pl/fr-en-de-es; fr-de-es/pl || pas ok : pl/nl; en-nl/pl
-# portuguese (pt), 
-# russian (ru), 
+# portuguese (pt),      pas ok du tout
+# russian (ru),         ok : ru to : fr, en,es; from to ru: es,en,fr|| pas ok : ru to : de,nl,pl; from to ru: pl,nl,de
 # swahili (sw), 
 # thai (th), 
 # turkish (tr), 
@@ -38,10 +42,12 @@ lang_dict = {
 
 
 ## + Pipeline models ------------------------------------------------------------------------
-## Load the model tu use it localy : no information sent through internet, but slower than API
+## Load the model : slower than API
 
 # LANGUAGE DETECTION ---------------------------------------------------------------------
 def detect_lang_ppl(input_text):
+    if len(input_text) > 500:
+        input_text = extract_to_id(input_text)
     classificator = pipeline("text-classification",
                     model='papluca/xlm-roberta-base-language-detection')
     dict_langs_found = classificator(input_text)
@@ -50,9 +56,9 @@ def detect_lang_ppl(input_text):
 
 def make_trad_ppl(text_to_trad,from_lang, to_lang):
 
-    if not(from_lang in lang_dict) or not(to_lang in lang_dict):
-        ok_languages = ",".join(lang_dict.keys())
-        return f"You ask for a translation from {from_lang} to {to_lang}\nWe accept the following languages: {ok_languages}"
+    # if not(from_lang in lang_dict) or not(to_lang in lang_dict):
+    #     ok_languages = ",".join(lang_dict.keys())
+    #     return f"You ask for a translation from {from_lang} to {to_lang}\nWe accept the following languages: {ok_languages}"
     translator = pipeline(f"translation_{from_lang}_to_{to_lang}",
                 model=f"Helsinki-NLP/opus-mt-{from_lang}-{to_lang}")
     dict_transl_txt = translator(text_to_trad)
@@ -104,3 +110,39 @@ def make_trad_API(text_to_trad,from_lang, to_lang):
         time.sleep(20)    
     response = API_call_trad(text_to_trad,from_lang, to_lang)
     return response.json()
+
+## + Preprocessing large text -----------------------------------------------------
+
+def large_txt_translation(text_to_trad,from_lang, to_lang):
+    lst_txt = text_to_trad.split('.')
+    point = "."
+    lst_txt_ended = [line+point for line in lst_txt]
+
+    translated_txt = ""
+    first_index = 0
+    while lst_txt_ended:
+        small_txt = ""
+        for line in lst_txt_ended:
+            if lst_txt_ended and len(small_txt) < 500:
+                small_txt += lst_txt_ended.pop(first_index)
+            else:
+                break
+        small_translated_txt = make_trad_ppl(small_txt, from_lang, to_lang)
+        translated_txt += small_translated_txt
+
+    return translated_txt
+
+def extract_to_id(input_text):
+    lst_txt = input_text.split('.')
+    point = "."
+    lst_txt_ended = [line+point for line in lst_txt]
+
+    extract = ""
+    first_index = 0
+    for _ in lst_txt_ended:
+        if lst_txt_ended and len(extract) < 500:
+            extract += lst_txt_ended.pop(first_index)
+        else:
+            break
+    return extract
+        
