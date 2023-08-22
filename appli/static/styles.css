@@ -4,7 +4,7 @@
     padding: 20px;
   }
   
-  .col-md-6 {
+.col-md-6 {
     text-align: left;
     color:black;
     border: 1px solid #e2ffff;
@@ -14,6 +14,12 @@
     border-radius: 0.3rem;
 }
 
+
+.btn-flag {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
 
 h1 {
     color: #6640b7;
@@ -77,8 +83,8 @@ body {
   
   /* Button styles */
   .btn {
-    background-color: #eafeff; /* Yellow pastel */
-    border-color: #edfeff; /* Yellow pastel */
+    background-color: #eafeff; 
+    border-color: #edfeff;
     color: #333;
   }
   
@@ -96,6 +102,9 @@ body {
 .langs{
   color: #9e91ff;
 }
-  /* .text-zone{
-    text-align: right;
-  } */
+
+.bigger-icon img {
+  width: 32px; /* Ajustez la largeur à la taille souhaitée */
+  height: 32px; /* Ajustez la hauteur à la taille souhaitée */
+  vertical-align: middle; /* Pour centrer l'image verticalement avec le texte */
+}

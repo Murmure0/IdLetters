@@ -35,7 +35,7 @@ app.secret_key = '123' # you should not see that, shoo
 # UPLOAD_FOLDER = "appli\\uploads"
 UPLOAD_FOLDER = "uploads"
 
-ALLOWED_EXTENSIONS = {'pdf','jpg', 'jpeg', 'png', 'heif', 'heic'}
+ALLOWED_EXTENSIONS = {'pdf','jpg', 'jpeg', 'png'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # ------------------------------------------------------------------------- #
@@ -43,22 +43,25 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def translate_text():
+    session['prev_lang'] = "fr"
+    session['title'] = 'Traduisez vos fichiers d\'une langue à une autre'
+    session['body'] = 'Vous ne savez pas dans quelle langue est votre document ? Choisissez "Identify for me" : le processus sera plus lent. N\'envoyez aucune information personnelle, elevez des textes : votre nom, adresse, email, téléphone, identifiant ...'
 
     # Default
     if request.method == 'GET':
-        return render_template('translate.html', translation_result=None)
+        return render_template('translate.html', translation_result=None,title=session.get('title'), body=session.get('body'))
 
     # # Get text from PDF/Img/Text zone:
     selected_language = request.form['language']
-    session['prev_lang'] = "en"
-    session['title'] = 'Translate your files from the selected language to the desired one'
     # session['body'] = "You don't know from which language to translate ? Choose "Identify for me" but the process will be slower."
     if selected_language:
         try:
+            session['body'] = translateText.make_trad_ppl(session.get('body'), session.get('prev_lang'), selected_language)
             session['title'] = translateText.make_trad_ppl(session.get('title'), session.get('prev_lang'), selected_language)
+            session['prev_lang'] = selected_language
         except OSError as error:
-            error_message = f"Sorry, translation from {transl_from} to {transl_to} not available yet."
-        return render_template('translate.html', title=session.get('title'))
+            error_message = f"Sorry, translation from {session.get('prev_lang')} to {selected_language} not available yet."
+        return render_template('translate.html', title=session.get('title'), body=session.get('body'))
 
 
     if 'input_pdf' in request.files:

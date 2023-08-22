@@ -23,22 +23,24 @@
     <div class="container">
         <div class="jumbotron text-white text-center">
             <h1>* Transletter</h1>
-            <h6>The slowest translator, now with AI</h6>
+            <div class="d-flex justify-content-end">
+                <form method="post">
+                    <button type="submit" name="language" value="en" class="btn-flag" checked="checked"><img src="static\\gb.png" alt="English Flag"></button>
+                    <button type="submit" name="language" value="fr" class="btn-flag" ><img src="static\\fr.png" alt="French Flag"></button>
+                    <button type="submit" name="language" value="de" class="btn-flag" ><img src="static\\de.png" alt="German Flag"></button>
+                    <button type="submit" name="language" value="es" class="btn-flag" ><img src="static\\es.png" alt="Spanish Flag"></button>
+                    <button type="submit" name="language" value="nl" class="btn-flag" ><img src="static\\nl.png" alt="Dutch Flag"></button>
+                    <button type="submit" name="language" value="pl" class="btn-flag" ><img src="static\\pl.png" alt="Polish Flag"></button>
+                    <button type="submit" name="language" value="ru" class="btn-flag" ><img src="static\\ru.png" alt="Russian Flag"></button>
+                    <button type="submit" name="language" value="ar" class="btn-flag" ><img src="static\\ae.png" alt="Arabic Flag"></button>
+                </form>
+            </div>
             <div class="horizontal-line"></div>
             <br>
-
-            <form method="post">
-                <button type="submit" name="language" value="fr"><img src="static\\fr.svg" alt="French Flag"> Français</button>
-                <button type="submit" name="language" value="en"  checked="checked"><img src="path_to_english_flag.png" alt="English Flag"> English</button>
-                <button type="submit" name="language" value="de"><img src="static\\de.svg" alt="German Flag"> Deutsch</button>
-                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-            </form>
-
             <h2>{{title}}<br></h2>
-            <div class="intro">
-                You don't know from which language to translate ? Choose "Identify for me" but the process will be slower.<br>
-            </div>           
             <br>
+            <div class="intro">{{body}}.<br>
+            </div>           
             <br>
 
             <form method="POST" enctype="multipart/form-data">
@@ -64,73 +66,81 @@
                                 <!-- Text section -->
                                 <div class="tab-pane fade show active" id="textTab">
                                         <div class="form-group" style="text-align: left;">
-                                            <label for="input_text">Enter your text<br>
-                                                Please remove any sensible informations about you : name, adress, phone number, id ...</label>
                                             <textarea class="form-control" id="input_text" name="input_text">{%if input_text%}{{input_text}}{%endif%}{% if txt_from_pdf %}{{txt_from_pdf}}{% endif %}{% if txt_from_img %}{{txt_from_img}}{% endif %}</textarea>
                                         </div>
                                         <br>
                                                                     <!-- Language section -->
                                         <div class="btn-choose">
-                                            <label for="language_from">Translate from</label>
+                                            <label for="language_from">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-down-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M6.364 2.5a.5.5 0 0 1 .5-.5H13.5A1.5 1.5 0 0 1 15 3.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 2 13.5V6.864a.5.5 0 1 1 1 0V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H6.864a.5.5 0 0 1-.5-.5z"/>
+                                                <path fill-rule="evenodd" d="M11 10.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L1.146 1.854a.5.5 0 1 1 .708-.708L10 9.293V5.5a.5.5 0 0 1 1 0v5z"/>
+                                              </svg>Translate from</label>
+                                            <br>
                                             <br>
                                             <div class="btn-group" role="group" aria-label="Choose the language to translate from">
-                        
-                                                <input type="radio" id="idk" name="language_from" value="idk" class="btn-check" checked="checked">
-                                                <label class="btn btn-outline-primary" for="idk"> Identify for me </label>
 
-                                                <input type="radio" id="en" name="language_from" value="en" class="btn-check">
-                                                <label class="btn btn-outline-primary" for="en"> English </label>
+                                                <input type="radio" id="en" name="language_from" value="en" class="btn-check" checked="checked">
+                                                <label class="btn btn-outline-primary" for="en"><img src="static\\gb.png" alt="English Flag"> English </label>
 
                                                 <input type="radio" id="nl_from" name="language_from" value="nl" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="nl_from"> Dutch </label>
+                                                <label class="btn btn-outline-primary" for="nl_from"><img src="static\\nl.png" alt="Dutch Flag"> Dutch </label>
 
                                                 <input type="radio" id="fr" name="language_from" value="fr" class="btn-check">
-                                                <label class="btn btn-outline-primary" for="fr"> French </label>
+                                                <label class="btn btn-outline-primary" for="fr"><img src="static\\fr.png" alt="French Flag"> French </label>
                                                 
                                                 <input type="radio" id="de_from" name="language_from" value="de" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="de_from"> German </label>
+                                                <label class="btn btn-outline-primary" for="de_from"><img src="static\\de.png" alt="German Flag"> German </label>
                                                 
                                                 <input type="radio" id="es_from" name="language_from" value="es" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="es_from"> Spanish </label>
+                                                <label class="btn btn-outline-primary" for="es_from"><img src="static\\es.png" alt="Spanish Flag"> Spanish </label>
                                                 
                                                 <input type="radio" id="pl_from" name="language_from" value="pl" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="pl_from"> Polish </label>
+                                                <label class="btn btn-outline-primary" for="pl_from"><img src="static\\pl.png" alt="Polish Flag"> Polish </label>
                                                 
                                                 <input type="radio" id="ar_from" name="language_from" value="ar" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="ar_from"> Arabic </label>
+                                                <label class="btn btn-outline-primary" for="ar_from"><img src="static\\ae.png" alt="Arabic Flag"> Arabic </label>
                                                 
                                                 <input type="radio" id="ru_from" name="language_from" value="ru" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="ru_from"> Russian </label>
+                                                <label class="btn btn-outline-primary" for="ru_from"><img src="static\\ru.png" alt="Russian Flag"> Russian </label>
+                                                                        
+                                                <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
+                                                <label class="btn btn-outline-primary" for="idk">🔎 Identify for me </label>
+
                                             </div>
-                                            <br><br>
+                                            <br><br><br>
                                             
-                                            <label for="language_to">To</label>
+                                            <label for="language_to"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-down-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z"/>
+                                                <path fill-rule="evenodd" d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z"/>
+                                              </svg>To</label>
+                                            <br>
                                             <br>
                                             <div class="btn-group" role="group" aria-label="Language To">
                                                 
                                                 <input type="radio" id="en_to" name="language_to" value="en" class="btn-check"  checked="checked">
-                                                <label class="btn btn-outline-primary" for="en_to"> English </label>
+                                                <label class="btn btn-outline-primary" for="en_to"><img src="static\\gb.png" alt="English Flag"> English </label>
                                                 
                                                 <input type="radio" id="nl_to" name="language_to" value="nl" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="nl_to"> Dutch </label>
+                                                <label class="btn btn-outline-primary" for="nl_to"><img src="static\\nl.png" alt="Dutch Flag"> Dutch </label>
 
                                                 <input type="radio" id="fr_to" name="language_to" value="fr" class="btn-check">
-                                                <label class="btn btn-outline-primary" for="fr_to"> French </label>
+                                                <label class="btn btn-outline-primary" for="fr_to"><img src="static\\fr.png" alt="French Flag"> French </label>
                                                 
                                                 <input type="radio" id="de_to" name="language_to" value="de" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="de_to"> German </label>
+                                                <label class="btn btn-outline-primary" for="de_to"><img src="static\\de.png" alt="German Flag"> German </label>
                                                 
                                                 <input type="radio" id="es_to" name="language_to" value="es" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="es_to"> Spanish </label>
+                                                <label class="btn btn-outline-primary" for="es_to"><img src="static\\es.png" alt="Spanish Flag"> Spanish </label>
                                                 
                                                 <input type="radio" id="pl_to" name="language_to" value="pl" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="pl_to"> Polish </label>
+                                                <label class="btn btn-outline-primary" for="pl_to"><img src="static\\pl.png" alt="Polish Flag"> Polish </label>
                                                    
                                                 <input type="radio" id="ar_from" name="language_from" value="ar" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="ar_from"> Arabic </label>
+                                                <label class="btn btn-outline-primary" for="ar_from"><img src="static\\ae.png" alt="Arabic Flag"> Arabic </label>
                                                 
                                                 <input type="radio" id="ru_from" name="language_from" value="ru" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="ru_from"> Russian </label>
+                                                <label class="btn btn-outline-primary" for="ru_from"><img src="static\\ru.png" alt="Russian Flag"> Russian </label>
                                             </div>
                                             <br>
                                         </div>
@@ -138,7 +148,7 @@
                                 <!-- PDF section -->
                                 <div class="tab-pane fade" id="pdfTab">
                                         <div class="form-group">
-                                            <label for="input_pdf">Upload a pdf</label><br>
+                                            <label for="input_pdf" class="bigger-icon"><i class="bi bi-download"><img src="static\\pdf.svg" alt="Load pdf">Upload a pdf</i></label><br><br>
                                             <input type="file" class="form-control-file" id="input_pdf" name="input_pdf">
                                         </div>
                                         <!-- TODO : pouvoir checker les fichiers deja présents sans avoir a en soumettre un nouveau -->
@@ -148,7 +158,7 @@
                                 <!-- Image section -->
                                 <div class="tab-pane fade" id="imgTab">
                                         <div class="form-group">
-                                            <label for="input_img">Upload an image</label><br>
+                                            <label for="input_img"  class="bigger-icon"><img src="static\\img.svg" alt="Load image">Upload an image : .jpg, .jpeg, .png</label><br><br>
                                             <input type="file" class="form-control-file" id="input_img" name="input_img">
                                         </div>
                                         <!-- TODO : pouvoir se synchroniser avec un cloud pour acceder direct aux photos prises par tel -->
@@ -159,6 +169,10 @@
                         </div>
                     </div>
 
+                    {% if error_message %}
+                    <p class="error">{{ error_message }}</p>
+                    {% endif %}
+
                     {% if img_uploaded %}
                     <p class="img_uploaded">{{ img_uploaded }}</p>
                     {% endif %}
@@ -166,12 +180,10 @@
                     {% if pdf_uploaded %}
                     <p class="pdf_uploaded">{{ pdf_uploaded }}</p>
                     {% endif %}
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-
-                    {% if error_message %}
-                    <p class="error">{{ error_message }}</p>
-                    {% endif %}
+                    <br>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary" ><img src="static\\check-lg.svg" alt="Send to translate"> OK</button>
+                    </div>
                 </div>
 
             </form>
