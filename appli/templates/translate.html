@@ -10,8 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
-
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
@@ -22,7 +23,7 @@
       
     <div class="container">
         <div class="jumbotron text-white text-center">
-            <h1>* Transletter</h1>
+            <h1 data-text="* Transletter">* Transletter</h1>
             <div class="d-flex justify-content-end">
                 <form method="post">
                     <button type="submit" name="language" value="en" class="btn-flag"><img src="static\\gb.png" alt="English Flag"></button>
@@ -136,11 +137,11 @@
                                                 <input type="radio" id="pl_to" name="language_to" value="pl" class="btn-check" >
                                                 <label class="btn btn-outline-primary" for="pl_to"><img src="static\\pl.png" alt="Polish Flag"> Polish </label>
                                                    
-                                                <input type="radio" id="ar_from" name="language_from" value="ar" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="ar_from"><img src="static\\ae.png" alt="Arabic Flag"> Arabic </label>
+                                                <input type="radio" id="ar_to" name="language_to" value="ar" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="ar_to"><img src="static\\ae.png" alt="Arabic Flag"> Arabic </label>
                                                 
-                                                <input type="radio" id="ru_from" name="language_from" value="ru" class="btn-check" >
-                                                <label class="btn btn-outline-primary" for="ru_from"><img src="static\\ru.png" alt="Russian Flag"> Russian </label>
+                                                <input type="radio" id="ru_to" name="language_to" value="ru" class="btn-check" >
+                                                <label class="btn btn-outline-primary" for="ru_to"><img src="static\\ru.png" alt="Russian Flag"> Russian </label>
                                             </div>
                                             <br>
                                         </div>
@@ -181,10 +182,13 @@
                     <p class="pdf_uploaded">{{ pdf_uploaded }}</p>
                     {% endif %}
                     <br>
-                    <button type="submit" class="btn btn-primary" >OK</button>
-                        <!-- <div class="d-flex justify-content-end"> -->
-                            <!-- <img src="static\\check-lg.svg" alt="Send to translate">  -->
-                    <!-- </div> -->
+                    <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn-ok btn-primary" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-square" viewBox="0 0 16 16">
+                            <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                            <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                          </svg> OK </button>
+                    </div>
                 </div>
 
             </form>
@@ -194,42 +198,51 @@
             <!-- Result part -->
             <div class="row">
                 <!-- Translated text -->
-                <div class="col-md-6">
-                    <h2>Translated Text</h2>
-                    <p>
-                        {% if langs %}
-                        <div class="langs">
-                                <p>{{ langs }}</p>      
-                            </span>
-                        </div>
-                        {% endif %}
-                    </p>
-                    <p>
-                        {% if translation_result %}
-                        <div class="translation-result">
-                            <span style="white-space: pre-line"> <!-- \n -->
-                                <p>{{ translation_result | safe }}</p>      
-                            </span>
-                        </div>
-                        {% endif %}
-                    </p>
+                <div class="col-md-6 translated-text">
+                    <br>
+                    <div class="horizontal-line"></div>
+                        <h3>Translated Text</h3>
+                        <p>{% if langs %}
+                            <div class="langs">
+                                    <p>{{ langs }}</p>      
+                                </span>
+                            </div>
+                            {% endif %}
+                        </p>
+                        <p>
+                            {% if translation_result %}
+                            <div class="translation-result">
+                                <span style="white-space: pre-line"> <!-- \n -->
+                                    <p>{{ translation_result | safe }}</p>      
+                                </span>
+                            </div>
+                            {% endif %}
+                        </p>
                 </div>
 
                 
                 <!-- Download pdf -->
-                <div class="col-md-6">
-                    <h2>Download</h2>
+                <div class="col-md-6 download">
+                    <br>
+                    <div class="horizontal-line-dwl"></div>
+                    <h3>Download</h3>
+                    <br>
                     <p> {% if translation_result %}
+                        <div class="d-flex justify-content-center">
                             <div class="translation-result rounded">
                                 <div class="translation-result">
                                     <div class="download-buttons">
-                                        <a href="{{ url_for('download_pdf') }}" class="btn btn-primary" download="translated_text.pdf">Download as PDF</a>
+                                        <a href="{{ url_for('download_pdf') }}" class="btn-download btn-primary" download="translated_text.pdf"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                          </svg> Download as PDF </a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                             {% endif %}
-                    </p>      
-                </div>
+                    </p>
+                </div>      
             </div>
         {% endif %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

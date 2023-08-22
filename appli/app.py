@@ -45,7 +45,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def translate_text():
     session['prev_lang'] = "fr"
     session['title'] = 'Traduisez vos fichiers d\'une langue à une autre'
-    session['body'] = 'Vous ne savez pas dans quelle langue est votre document ? Choisissez "Identify for me" : le processus sera plus lent. N\'envoyez aucune information personnelle, elevez des textes : votre nom, adresse, email, téléphone, identifiant ...'
+    session['body'] = 'Vous ne savez pas dans quelle langue est votre document ? Choisissez "Identify for me" : le processus sera plus lent. N\'envoyez aucune information personnelle, enlevez des textes : votre nom, adresse, email, téléphone, identifiant ...'
 
     # Default
     if request.method == 'GET':

@@ -4,7 +4,7 @@
     padding: 20px;
   }
   
-.col-md-6 {
+/* .col-md-6 {
     text-align: left;
     color:black;
     border: 1px solid #e2ffff;
@@ -12,8 +12,28 @@
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 0.3rem;
+} */
+/* Style pour la colonne "Translated Text" */
+.translated-text {
+  background-color: #383874; 
+  color: #fafafa;
+  border-radius: 0.3rem;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
+/* Style pour la colonne "Download" */
+.download {
+  background-color: #ff6225;
+  border: 1px solid #fbfbfb;
+  align-content: center;
+  color: #ffffff;
+  border-radius: 0.3rem;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+}
 
 .btn-flag {
   border: none;
@@ -22,32 +42,46 @@
 }
 
 h1 {
-    color: #6640b7;
+    color: white;
     text-align: left;
     font-family: "Tilt Prism";
     font-size: 1.5cm;
 }
+
 h2 {
-    color: #6640b7;
+    color: #383874;
     text-align: left;
-    font-family: "Open Sans";
+    /* font-family: "Open Sans"; */
+    font-family: "Comfortaa";
+    font-weight: 700;
 }
-h6 {
-    color: #fffff1;
+h3 {
+    color: #ffffff;
     text-align: right;
-    font-family: "Open Sans";
+    /* font-family: "Open Sans"; */
+    font-family: "Comfortaa";
+    font-weight: 700;
 }
 
 .intro {
     color: #fffff1;
     text-align: left;
-    font-family: "Open Sans";
+    /* font-family: "Open Sans"; */
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 300;
 }
 
 .horizontal-line {
   width: 100%;
   height: 3px;
-  background-image: linear-gradient(to right, #ffffe0, #f3c3ed);
+  background-image: linear-gradient(to right, #fbeae4, #ff621f);
+  margin: 0 auto; /* Centrer la ligne horizontalement */
+}
+
+.horizontal-line-dwl {
+  width: 100%;
+  height: 3px;
+  background-image: linear-gradient(to right, #ffdccf, #383874);
   margin: 0 auto; /* Centrer la ligne horizontalement */
 }
 
@@ -58,40 +92,55 @@ textarea {
 
 
 body {
-    background-color: #f0f8ff; /* Blue pastel */
-    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* Fond noir */
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 300;
   }
   
   /* Header styles */
   header {
-    background-color: #e6e6fa; /* Violet pastel */
+    background-color: #ffffff; /* noir */
     padding: 10px;
   }
   
   /* Navigation styles */
   .navbar {
-    background-color: #ffffe0; /* Yellow pastel */
+    background-color: #ffffff; /* noir */
   }
   
   /* Jumbotron styles */
   .jumbotron {
-    background-color: #a1b7ff; /* Violet pastel */
+    background-color: #20c4c5; /* Bleu clair désaturé */
     padding: 20px;
     margin-bottom: 0;
     color: #333;
+    border-radius: 0.3rem;
   }
   
   /* Button styles */
   .btn {
-    background-color: #eafeff; 
-    border-color: #edfeff;
+    background-color: #b8e3e2; 
+    border-color: #b8e3e2;
     color: #333;
+  }
+  .btn-ok {
+    background-color: #383874; 
+    border-color: #383874;
+    color: white;
+    border-radius: 0.3rem;
+  }
+  .btn-download {
+    background-color: #383874; 
+    border-color: #383874;
+    color: white;
+    padding: 20px;
+    border-radius: 0.3rem;
   }
   
   /* Input styles */
   .form-control {
-    background-color: #f0f8ff; /* Blue pastel */
-    border-color: #f0f8ff; /* Blue pastel */
+    background-color: #eaf8f8; /* Blue pastel */
+    border-color: #eaf8f8; /* Blue pastel */
     color: #333;
   }
 
@@ -100,7 +149,7 @@ body {
   }
 
 .langs{
-  color: #9e91ff;
+  color: #d0cafd;
 }
 
 .bigger-icon img {
