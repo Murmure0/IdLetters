@@ -52,9 +52,8 @@ def translate_text():
         return render_template('translate.html', translation_result=None,title=session.get('title'), body=session.get('body'))
 
     # # Get text from PDF/Img/Text zone:
-    selected_language = request.form['language']
-    # session['body'] = "You don't know from which language to translate ? Choose "Identify for me" but the process will be slower."
-    if selected_language:
+    if 'language' in request.form:
+        selected_language = request.form['language']
         try:
             session['body'] = translateText.make_trad_ppl(session.get('body'), session.get('prev_lang'), selected_language)
             session['title'] = translateText.make_trad_ppl(session.get('title'), session.get('prev_lang'), selected_language)
@@ -74,7 +73,8 @@ def translate_text():
         img_file = request.files['input_img']
         if img_file.filename != '':
             return importing_img(img_file)
-
+        
+    # elif 'input_text' in request.form:
     input_text = request.form.get('input_text')
 
     # Get the langs from/to translate
@@ -99,14 +99,14 @@ def translate_text():
 
     # Error checking
     error_message = None
-    if not input_text and not pdf_file:
-        error_message = "Please provide a text or a pdf for the translation."
+    # if not input_text and not pdf_file:
+    #     error_message = "Please provide a text or a pdf for the translation."
 
     if transl_from == transl_to:
         error_message = f"Please select different languages for the translation.Checked: {transl_from} and {transl_to}"
 
     if error_message:
-        return render_template('translate.html', error_message=error_message)
+        return render_template('translate.html', error_message=error_message,title=session.get('title'), body=session.get('body'))
 
     # Translation 
     if input_text :
@@ -128,15 +128,15 @@ def translate_text():
             error_message = f"Sorry, translation from {transl_from} to {transl_to} not available yet."
 
         if error_message:
-            return render_template('translate.html', error_message=error_message)
+            return render_template('translate.html', error_message=error_message,title=session.get('title'), body=session.get('body'))
         # Translated text processing
         langs = f"Translation done from {transl_from} to {transl_to}."
         translation_result = translation_result.replace(". ", ".<br />")
         session['translation_result'] = translation_result
 
-        return render_template('translate.html', translation_result=session.get('translation_result'), langs=langs, translation_done=True, input_text=input_text)
+        return render_template('translate.html', translation_result=session.get('translation_result'), langs=langs, translation_done=True, input_text=input_text,title=session.get('title'), body=session.get('body'))
 
-    return render_template('translate.html', translation_result=None)
+    return render_template('translate.html', translation_result=None,title=session.get('title'), body=session.get('body'))
 
 
 @app.route('/download_pdf')
@@ -155,14 +155,14 @@ def download_pdf():
 def importing_img(img_file):
     if img_file.filename == '':
             flash('No selected file')
-            return render_template('translate.html', translation_result=None)
+            return render_template('translate.html', translation_result=None, title=session.get('title'), body=session.get('body'))
     if img_file and allowed_file(img_file.filename):
         filename = secure_filename(img_file.filename)
         img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         img_file.save(img_path)
         txt_from_img = extract_img_txt(img_path, filename)
-        return render_template('translate.html', img_uploaded="img uploaded", txt_from_img=txt_from_img)
-    return render_template('translate.html', img_uploaded="img not uploaded, extention allowed : .jpg, .jpeg, .png")
+        return render_template('translate.html', img_uploaded="img uploaded", txt_from_img=txt_from_img, title=session.get('title'), body=session.get('body'))
+    return render_template('translate.html', img_uploaded="img not uploaded, extention allowed : .jpg, .jpeg, .png", title=session.get('title'), body=session.get('body'))
 
 def extract_img_txt(img_path, filename):
     # Enhance Brightness:
@@ -183,14 +183,14 @@ def extract_img_txt(img_path, filename):
 def importing_pdf(pdf_file):
     if pdf_file.filename == '':
             flash('No selected file')
-            return render_template('translate.html', translation_result=None)
+            return render_template('translate.html', translation_result=None, title=session.get('title'), body=session.get('body'))
     if pdf_file and allowed_file(pdf_file.filename):
         filename = secure_filename(pdf_file.filename)
         pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         pdf_file.save(pdf_path)
         txt_from_pdf = extract_pdf_txt(pdf_path)
-        return render_template('translate.html', pdf_uploaded="pdf uploaded", txt_from_pdf=txt_from_pdf)
-    return render_template('translate.html', pdf_uploaded="pdf not uploaded, extention allowed : .pdf")
+        return render_template('translate.html', pdf_uploaded="pdf uploaded", txt_from_pdf=txt_from_pdf, title=session.get('title'), body=session.get('body'))
+    return render_template('translate.html', pdf_uploaded="pdf not uploaded, extention allowed : .pdf", title=session.get('title'), body=session.get('body'))
     
 def extract_pdf_txt(pdf_file):
 
@@ -210,6 +210,6 @@ def allowed_file(filename):
 
 if __name__ == '__main__':
     # Debug:
-    # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # app.run(debug=True, port=4995)
-    app.run(port=4995)
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    app.run(debug=True, port=4995)
+    # app.run(port=4995)

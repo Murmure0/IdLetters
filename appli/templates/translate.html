@@ -25,8 +25,8 @@
             <h1>* Transletter</h1>
             <div class="d-flex justify-content-end">
                 <form method="post">
-                    <button type="submit" name="language" value="en" class="btn-flag" checked="checked"><img src="static\\gb.png" alt="English Flag"></button>
-                    <button type="submit" name="language" value="fr" class="btn-flag" ><img src="static\\fr.png" alt="French Flag"></button>
+                    <button type="submit" name="language" value="en" class="btn-flag"><img src="static\\gb.png" alt="English Flag"></button>
+                    <button type="submit" name="language" value="fr" class="btn-flag" checked="checked" ><img src="static\\fr.png" alt="French Flag"></button>
                     <button type="submit" name="language" value="de" class="btn-flag" ><img src="static\\de.png" alt="German Flag"></button>
                     <button type="submit" name="language" value="es" class="btn-flag" ><img src="static\\es.png" alt="Spanish Flag"></button>
                     <button type="submit" name="language" value="nl" class="btn-flag" ><img src="static\\nl.png" alt="Dutch Flag"></button>
@@ -42,7 +42,7 @@
             <div class="intro">{{body}}.<br>
             </div>           
             <br>
-
+            
             <form method="POST" enctype="multipart/form-data">
                 <!-- Card to get text -->
                 <div class="container mt-5">
@@ -80,7 +80,7 @@
                                             <br>
                                             <div class="btn-group" role="group" aria-label="Choose the language to translate from">
 
-                                                <input type="radio" id="en" name="language_from" value="en" class="btn-check" checked="checked">
+                                                <input type="radio" id="en" name="language_from" value="en" class="btn-check">
                                                 <label class="btn btn-outline-primary" for="en"><img src="static\\gb.png" alt="English Flag"> English </label>
 
                                                 <input type="radio" id="nl_from" name="language_from" value="nl" class="btn-check" >
@@ -104,7 +104,7 @@
                                                 <input type="radio" id="ru_from" name="language_from" value="ru" class="btn-check" >
                                                 <label class="btn btn-outline-primary" for="ru_from"><img src="static\\ru.png" alt="Russian Flag"> Russian </label>
                                                                         
-                                                <input type="radio" id="idk" name="language_from" value="idk" class="btn-check">
+                                                <input type="radio" id="idk" name="language_from" value="idk" class="btn-check"  checked="checked">
                                                 <label class="btn btn-outline-primary" for="idk">🔎 Identify for me </label>
 
                                             </div>
@@ -181,9 +181,10 @@
                     <p class="pdf_uploaded">{{ pdf_uploaded }}</p>
                     {% endif %}
                     <br>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary" ><img src="static\\check-lg.svg" alt="Send to translate"> OK</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary" >OK</button>
+                        <!-- <div class="d-flex justify-content-end"> -->
+                            <!-- <img src="static\\check-lg.svg" alt="Send to translate">  -->
+                    <!-- </div> -->
                 </div>
 
             </form>
