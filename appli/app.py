@@ -16,7 +16,7 @@ from langchain.document_loaders import UnstructuredFileLoader
 
 # Extract txt from img
 from langchain.document_loaders.image import UnstructuredImageLoader
-import cv2
+# import cv2
 import numpy as np
 
 # Debug
