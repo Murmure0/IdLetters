@@ -1,3 +1,4 @@
+Pour utiliser la version avec API vous aurez besoin d'un token huggingFace dispo ici : https://huggingface.co/settings/tokens
 ![1](https://github.com/Murmure0/IdLetters/assets/78256782/9b4c24ec-04d9-4bcd-aab3-9a8111fa69d1)
 
 ![2](https://github.com/Murmure0/IdLetters/assets/78256782/6087343b-f412-4ea0-aa7d-0ee07f22fff8)
