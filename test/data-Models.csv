@@ -1,0 +1,13 @@
+﻿Language,Modele,BLEU score, chr-F
+Ar,to En,49.4,0.661
+De,to En,55.4,0.707
+Es,to En,59.6,0.739
+Fr,to En,57.5,0.720
+Pl,to En,54.9,0.701
+Ru,to En,61.1,0.736
+Ar,from En,14.0, 0.437
+De,from En,47.3,0.664
+Es,from En,59.6,0.739
+Fr,from En,50.5,0.672
+Pl,from En,0,0
+Ru,from En,61.1,0.736
